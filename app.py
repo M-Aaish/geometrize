@@ -211,7 +211,7 @@ def create_shape(shape_type):
         raise ValueError("Unknown shape type: {}".format(shape_type))
 
 # -----------------------------------------------
-# Two-Phase Simulated Annealing for Shape Refinement
+# Two-Phase Simulated Annealing
 # -----------------------------------------------
 
 def simulated_annealing_shape(base_img, target_img, shape,
@@ -308,7 +308,8 @@ def run_geometrize(target_img, shape_type, shape_count, resize_factor,
             current_diff = best_diff
 
         # Update the image and progress text in real time
-        img_placeholder.image(np.array(current_img), use_column_width=True)
+        # We specify width=350 to make the preview smaller
+        img_placeholder.image(np.array(current_img), width=350)
         progress_placeholder.text(f"Shape count: {i+1}/{shape_count}")
 
     return current_img
@@ -340,7 +341,7 @@ if uploaded_file is not None:
         st.write("Generating image, please wait...")
         final_img = run_geometrize(input_img, shape_type, shape_count, resize_factor)
         st.write("Final Geometrized Image:")
-        st.image(np.array(final_img), use_column_width=True)
+        st.image(np.array(final_img), width=350)
 
         # 6. Download button: convert image to PNG bytes
         buf = io.BytesIO()
